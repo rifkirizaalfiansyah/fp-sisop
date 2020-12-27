@@ -159,14 +159,14 @@ do
 			printf $dipangkatkan
 			while [ $i -lt $pangkat ]
 			do
-				let deret[$i]=${deret[$i]}*$dipangkatkan
+				let deret[$i]=${deret[$i-1]}*$dipangkatkan
 				let i=$i+1
 			done
 			
-			j=0
+			j=1
 			while [ $j -lt $pangkat ]
 			do
-				echo "%d, "${deret[$j]}
+				printf "%s, "${deret[$j]}
 				let j=$j+1
 			done
 			echo ""
@@ -184,6 +184,7 @@ do
 			echo ""
 			echo "Input : "
 			read metode
+			clear
 			
 			case $metode in
 				1)
@@ -192,7 +193,7 @@ do
 					echo "========================================"
 					echo ""
 					echo "Masukkan bilangan pertama : "
-					read pertama
+					read awal
 					echo "Masukkan bilangan akhir : "
 					read akhir
 					echo ""
@@ -203,34 +204,70 @@ do
 						if [[ $(($awal%2)) -eq 0 ]]
 						then
 							let i=$awal+1
+						else
+							i=$awal
 						fi
 						
 						printf $i
 						while [ $i -lt $akhir ]
 						do
 							let i=$i+2
-							if [ $i -lt $akhir ]
+							if [ $i -le $akhir ]
 							then
-								echo "%s, "$i
+								printf "%s, "$i
 							fi
 						done
 					else
 						echo "Tidak dapat menghitung..."
-						read
-						
 					fi
 					echo ""
 					echo "Tekan Enter untuk kembali..."
 					read
 					;;
 				2)
+					echo "=============Program Deret=============="
+					echo "|          Deret Ganjil/Genap          |"
+					echo "========================================"
+					echo ""
+					echo "Masukkan bilangan pertama : "
+					read awal
+					echo "Masukkan bilangan akhir : "
+					read akhir
+					echo ""
+					printf "Deret: "
+					
+					if [ $awal -lt $akhir ]
+					then
+						if [[ $(($awal%2)) -eq 1 ]]
+						then
+							let i=$awal+1
+						else
+							i=$awal
+						fi
+						
+						printf $i
+						while [ $i -lt $akhir ]
+						do
+							let i=$i+2
+							if [ $i -le $akhir ]
+							then
+								printf "%s, "$i
+							fi
+						done
+					else
+						echo "Tidak dapat menghitung..."
+					fi
+					echo ""
+					echo "Tekan Enter untuk kembali..."
+					read
 					;;
 				*)
 					;;
 			esac
 			;;
 		0)
-			read=0
+			run=0
+			echo "Terima kasih"
 			;;
 		*)
 			;;
